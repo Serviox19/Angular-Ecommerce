@@ -7,9 +7,19 @@ var userSchema = new Schema({
     required: true,
     unique: true
   },
+  password : {
+    type : String,
+    required : true,
+  },
   balance: {
-    type: Currency,
-  }
+    type: Number,
+    default: 0,
+    currency: 'USD'
+  },
+  items: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Item'
+  }]
 });
 
 var User = mongoose.model('User', userSchema);
