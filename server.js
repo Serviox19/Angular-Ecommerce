@@ -19,12 +19,6 @@ app.use(bodyParser.json());
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/views", express.static(__dirname + "/views"));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-var api = require('./routes/api');
-app.use('/api', api);
-
 app.use(session({
   secret: 'super secret',
   cookie: {
@@ -34,6 +28,10 @@ app.use(session({
   saveUninitialized: true,
   resave: true
 }));
+
+app.get('*', function(req, res) {
+    res.sendfile('./views/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+});
 
 
 app.listen(PORT, function(req, res){
